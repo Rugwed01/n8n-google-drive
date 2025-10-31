@@ -1,9 +1,4 @@
-### **GitHub Repository: WhatsApp Google Drive Assistant (n8n)**
-
-#### **`README.md`**
-
-```markdown
-# WhatsApp-driven Google Drive Assistant (n8n)
+## **WhatsApp Google Drive Assistant (n8n)**
 
 This repository contains the n8n workflow and documentation for a WhatsApp-based assistant that allows users to manage their Google Drive files through simple chat commands.
 

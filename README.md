@@ -36,7 +36,7 @@ The goal of this project is to create an n8n workflow where a user can interact 
 
 ## Screenshot
 
-![n8n_flow.png](/relative/path/to/img.jpg?raw=true "n8n_flow.png")
+[![n8n_flow.png](https://i.postimg.cc/ZR8Bb1MG/n8n_flow.png)](https://postimg.cc/N90fbPYD)
 
 ---
 

@@ -1,0 +1,1533 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "a4e10802-c1ce-437b-bd67-8ede825b2f52",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -144,
+        240
+      ],
+      "id": "a38ed71b-55ff-47a8-b7b1-bff1f0f8f0c6",
+      "name": "Webhook",
+      "webhookId": "a4e10802-c1ce-437b-bd67-8ede825b2f52"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.query['hub.challenge'] }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/plain"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        272,
+        224
+      ],
+      "id": "deb8c41c-d3de-4690-bde7-448d0c49a23f",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.entry[0].changes[0].value.messages[0].text.body }}",
+                    "rightValue": "LIST ",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    },
+                    "id": "0b629f9c-de78-46e1-878f-1f617375bede"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a82363b5-476b-47e8-8a8e-16d3734c737f",
+                    "leftValue": "",
+                    "rightValue": "DELETE ",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5bf051f6-7580-4a32-8623-5dd04e531ea3",
+                    "leftValue": "",
+                    "rightValue": "MOVE ",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "4cd22676-3b3a-400d-b13f-f2a820dcbe6b",
+                    "leftValue": "",
+                    "rightValue": "SUMMARY ",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "27917416-2213-4412-a663-0777a8b6980c",
+                    "leftValue": "",
+                    "rightValue": "RENAME ",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "95a34b94-ee74-472e-8461-e586a378ac11",
+                    "leftValue": "",
+                    "rightValue": "UPLOAD ",
+                    "operator": {
+                      "type": "string",
+                      "operation": "startsWith"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        400,
+        448
+      ],
+      "id": "d94e7a61-b5bb-4add-be78-6eb38f71b4b6",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b768053e-bc5b-499c-ac69-189f3ecdb663",
+              "leftValue": "={{ $request.method }}",
+              "rightValue": "GET",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        64,
+        240
+      ],
+      "id": "8390af18-9645-4531-9639-ae12a23af925",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "const message = $json.body.entry[0].changes[0].value.messages[0];\n\nconst folderName = message.text.body.substring(5);\nconst senderId = message.from;\n\nreturn {\n  folderName: folderName,\n  senderId: senderId\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        688,
+        -48
+      ],
+      "id": "8ddebcad-9173-4ae0-934c-872641afc197",
+      "name": "Parse Input"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "=name = '{{ $node[\"Parse Input\"].json.folderName }}' and mimeType = 'application/vnd.google-apps.folder'",
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        864,
+        -48
+      ],
+      "id": "e6a69b23-2f77-489e-bb24-c75f82478b36",
+      "name": "Find Folder",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6cf50529-c6c0-4cb7-a84f-20709fa69cf5",
+              "leftValue": "={{ $items.length }}",
+              "rightValue": 1,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1040,
+        -48
+      ],
+      "id": "583b72cb-cc42-409f-bc58-92de52ae81c8",
+      "name": "Folder Exists?"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "={{ $node[\"Find Folder\"].json.id }}",
+        "returnAll": true,
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1264,
+        -64
+      ],
+      "id": "d5ff26e6-9a77-4779-a9a7-53cb8a0340c6",
+      "name": "List Files",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const files = $input.all();\nif (files.length === 0) {\n  return [{ json: { response: \"📂 The folder is empty.\" } }];\n}\n// Get the folder name from the first node in the workflow branch\nconst folderName = $node[\"Parse Input\"].json.folderName;\n\nlet fileList = `Files in *${folderName}*:\\n\\n`;\nfiles.forEach(file => {\n  fileList += `📄 ${file.json.name}\\n`;\n});\nreturn [{ json: { response: fileList } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1456,
+        -64
+      ],
+      "id": "cbd911fe-67ba-4145-8050-33e1504725d6",
+      "name": "Format List"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v18.0/835982072927489/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"{{ $node[\"Parse Input\"].json.senderId }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"body\": \"{{ $node[\"Format List\"].json.response }}\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1632,
+        -64
+      ],
+      "id": "7e0b02da-6291-4faf-8099-bc06e4c4f881",
+      "name": "Send Reply",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "xGop94yiRTS0TYrD",
+          "name": "Meta Permanent Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const message = $json.body.entry[0].changes[0].value.messages[0];\nconst commandText = message.text.body;\n\n// Split the command text to get folder and file name\nconst parts = commandText.split(' ');\nconst folderName = parts[1];\nconst newFileName = parts[2];\n\n// Get the sender's ID for the reply\nconst senderId = message.from;\n\n// Prepare the output\nconst output = {\n  folderName: folderName,\n  newFileName: newFileName,\n  senderId: senderId\n};\n\n// Pass the binary data (the uploaded file) to the next node\nreturn [{ \n    json: output, \n    binary: $items[0].binary \n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        960
+      ],
+      "id": "b43cd18a-5d8c-4fd4-bbc5-083102c6ec77",
+      "name": "Parse Upload Command"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "=name = '{{ $node[\"Parse Upload Command\"].json.folderName }}' and mimeType = 'application-vnd.google-apps.folder'",
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        864,
+        960
+      ],
+      "id": "3039921b-0c7a-41c2-9b48-5f4913eb23a4",
+      "name": "Find Upload Folder",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3d3ca45f-1604-4faa-8035-ef586e85bb07",
+              "leftValue": "={{ $items.length }}",
+              "rightValue": 1,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1072,
+        960
+      ],
+      "id": "9afe2a57-404a-4dcf-ad43-63f9c90aa772",
+      "name": "Upload Folder Exists?"
+    },
+    {
+      "parameters": {
+        "name": "={{ $node[\"Parse Upload Command\"].json.newFileName }}",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "={{ $node[\"Find Upload Folder\"].json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1328,
+        944
+      ],
+      "id": "60a3b075-6dcc-4f3e-92f1-4aa94bbb4a29",
+      "name": "Upload File to Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v18.0/835982072927489/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"{{ $node[\"Parse Upload Command\"].json.senderId }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"body\": \"✅ File *{{ $node[\"Parse Upload Command\"].json.newFileName }}* has been successfully uploaded to the *{{ $node[\"Parse Upload Command\"].json.folderName }}* folder!\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1520,
+        944
+      ],
+      "id": "46f0681d-4c43-41a2-81ee-fcd7ddd64a84",
+      "name": "Send Upload Confirmation",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "xGop94yiRTS0TYrD",
+          "name": "Meta Permanent Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const message = $json.body.entry[0].changes[0].value.messages[0];\nconst commandText = message.text.body;\n\n// Get the full path like /FolderName/file.pdf\nconst fullPath = commandText.split(' ')[1];\n\n// Extract folder and file names\nconst folderName = fullPath.substring(0, fullPath.lastIndexOf('/'));\nconst fileName = fullPath.substring(fullPath.lastIndexOf('/') + 1);\n\n// Get the sender's ID for the reply\nconst senderId = message.from;\n\nreturn {\n  folderName: folderName,\n  fileName: fileName,\n  senderId: senderId\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        144
+      ],
+      "id": "87d51c0f-4b84-49d5-b129-09b15813fdc6",
+      "name": "Parse Delete Command"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "=name = '{{ $node[\"Parse Delete Command\"].json.folderName }}' and mimeType = 'application/vnd.google-apps.folder'",
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        864,
+        144
+      ],
+      "id": "d3e91c26-b2a8-4ad1-bad9-61347cc2184e",
+      "name": "Find Folder to Delete From",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e731d9bd-a64f-4c4f-932d-402eb891389d",
+              "leftValue": "={{ $items.length }}",
+              "rightValue": 1,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1072,
+        144
+      ],
+      "id": "b612e66b-0825-4984-b0e5-adbf4d350497",
+      "name": "Delete Folder Exists?"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "=name = '{{ $node[\"Parse Delete Command\"].json.fileName }}' and '{{ $node[\"Find Folder to Delete From\"].json.id }}' in parents",
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1312,
+        128
+      ],
+      "id": "b9dc29ce-28d5-49a3-824c-a6b9125fea60",
+      "name": "Find File to Delete",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2b436af8-bc32-48df-bd83-d8d1d8380c00",
+              "leftValue": "={{ $items.length }}",
+              "rightValue": 1,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1520,
+        128
+      ],
+      "id": "aa3da1d6-8bea-41d8-a875-223afc242665",
+      "name": "File to Delete Exists?"
+    },
+    {
+      "parameters": {
+        "operation": "deleteFile",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $node[\"Find File to Delete\"].json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1760,
+        112
+      ],
+      "id": "5e90e2ee-3a7a-4d5f-baa0-2689f1d8f88e",
+      "name": "Delete the File",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v18.0/835982072927489/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"{{ $node[\"Parse Delete Command\"].json.senderId }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"body\": \"🗑️ Successfully deleted *{{ $node[\"Parse Delete Command\"].json.fileName }}*.\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1968,
+        112
+      ],
+      "id": "24e4a451-f05a-4ade-9144-19d9c437234c",
+      "name": "Send Deletion Confirmation",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "xGop94yiRTS0TYrD",
+          "name": "Meta Permanent Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const message = $json.body.entry[0].changes[0].value.messages[0];\nconst commandText = message.text.body;\n\nconst parts = commandText.split(' '); // MOVE /Source/file.pdf /Destination\nconst fullPath = parts[1];\nconst destFolderName = parts[2];\n\nconst sourceFolderName = fullPath.substring(0, fullPath.lastIndexOf('/'));\nconst fileName = fullPath.substring(fullPath.lastIndexOf('/') + 1);\nconst senderId = message.from;\n\nreturn {\n  sourceFolderName,\n  fileName,\n  destFolderName,\n  senderId\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        688,
+        336
+      ],
+      "id": "27d66e8f-26b1-4a40-af65-23aa81c18ddd",
+      "name": "Parse Move Command"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "=name = '{{ $node[\"Parse Move Command\"].json.sourceFolderName }}' and mimeType = 'application/vnd.google-apps.folder'",
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        880,
+        336
+      ],
+      "id": "b1699314-a636-44ae-a287-40ac0a5bf938",
+      "name": "Find Source Folder",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "=name = '{{ $node[\"Parse Move Command\"].json.destFolderName }}' and mimeType = 'application/vnd.google-apps.folder'",
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1072,
+        336
+      ],
+      "id": "7a0f2df4-5152-44cc-9a79-aedad78f5fa9",
+      "name": "Find Destination Folder",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "=name = '{{ $node[\"Parse Move Command\"].json.fileName }}' and '{{ $node[\"Find Source Folder\"].json.id }}' in parents",
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1264,
+        336
+      ],
+      "id": "bfe87de9-acd3-48e1-a5ef-e743c0cf713d",
+      "name": "Find File to Move",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $node[\"Find File to Move\"].json.id }}",
+          "mode": "id"
+        },
+        "options": {
+          "propertiesUi": {
+            "propertyValues": [
+              {
+                "key": "addParents",
+                "value": "={{ $node[\"Find Destination Folder\"].json.id }}"
+              },
+              {
+                "key": "removeParents",
+                "value": "={{ $node[\"Find Source Folder\"].json.id }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1472,
+        336
+      ],
+      "id": "e3189f05-6197-4839-9d1d-866f95fa461b",
+      "name": "Move the File",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v18.0/835982072927489/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"{{ $node[\"Parse Move Command\"].json.senderId }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"body\": \"✅ Successfully moved *{{ $node[\"Parse Move Command\"].json.fileName }}* to the *{{ $node[\"Parse Move Command\"].json.destFolderName }}* folder.\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1680,
+        336
+      ],
+      "id": "0d25c4e0-912d-4644-a85e-9d0afb474fa1",
+      "name": "Send Move Confirmation",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "xGop94yiRTS0TYrD",
+          "name": "Meta Permanent Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const message = $json.body.entry[0].changes[0].value.messages[0];\nconst commandText = message.text.body;\n\nconst parts = commandText.split(' '); // RENAME /Folder/old.pdf new.pdf\nconst fullPath = parts[1];\nconst newFileName = parts[2];\n\nconst folderName = fullPath.substring(0, fullPath.lastIndexOf('/'));\nconst oldFileName = fullPath.substring(fullPath.lastIndexOf('/') + 1);\nconst senderId = message.from;\n\nreturn {\n  folderName,\n  oldFileName,\n  newFileName,\n  senderId\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        752
+      ],
+      "id": "49cb41e7-8c30-46f5-ac3a-b3fbe857e8ad",
+      "name": "Parse Rename Command"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "=name = '{{ $node[\"Parse Rename Command\"].json.folderName }}' and mimeType = 'application/vnd.google-apps.folder'",
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        864,
+        752
+      ],
+      "id": "16b01062-b1d7-49d8-ab90-5d2ccf4ee001",
+      "name": "Find Folder to Rename",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "=name = '{{ $node[\"Parse Rename Command\"].json.oldFileName }}' and '{{ $node[\"Find Folder to Rename\"].json.id }}' in parents",
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1072,
+        752
+      ],
+      "id": "f18831cf-c5c9-4352-9793-8957e4122fc4",
+      "name": "Find File to Rename",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $node[\"Find File to Rename\"].json.id }}",
+          "mode": "id"
+        },
+        "options": {
+          "propertiesUi": {
+            "propertyValues": [
+              {
+                "key": "addName",
+                "value": "={{ $node[\"Parse Rename Command\"].json.newFileName }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1280,
+        752
+      ],
+      "id": "f06d04d8-d7fa-4537-8f79-b468b15b14f2",
+      "name": "Rename the File",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v18.0/835982072927489/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"{{ $node[\"Parse Rename Command\"].json.senderId }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"body\": \"✅ Successfully renamed *{{ $node[\"Parse Rename Command\"].json.oldFileName }}* to *{{ $node[\"Parse Rename Command\"].json.newFileName }}*.\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1488,
+        752
+      ],
+      "id": "84d741bc-cf7c-4640-8a1a-75c5f3364705",
+      "name": "Send Rename Confirmation",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "xGop94yiRTS0TYrD",
+          "name": "Meta Permanent Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const message = $json.body.entry[0].changes[0].value.messages[0];\nconst commandText = message.text.body;\nconst parts = commandText.split(' ');\nreturn {\n  folderName: parts[1],\n  senderId: message.from\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        528
+      ],
+      "id": "1d8f70bc-eb0c-47d7-8e24-eb583894b69a",
+      "name": "Parse Summary Command"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "=name = '{{ $node[\"Parse Summary Command\"].json.folderName }}' and mimeType = 'application/vnd.google-apps.folder'",
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        848,
+        528
+      ],
+      "id": "7e7d77cf-945f-4371-9390-5b97a1d94f92",
+      "name": "Find Folder to Summarize",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "='{{ $node[\"Find Folder to Summarize\"].json.id }}' in parents and (mimeType = 'application/pdf' or mimeType = 'text/plain' or mimeType = 'application/vnd.google-apps.document')",
+        "returnAll": true,
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1056,
+        528
+      ],
+      "id": "f7231ae8-ab93-48bf-bb96-14e019014230",
+      "name": "List Files to Summarize",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1312,
+        528
+      ],
+      "id": "87e5daf5-899a-4bb7-bcad-3e0219df9e72",
+      "name": "Loop Through Files"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1792,
+        704
+      ],
+      "id": "c7a1d710-0f0d-4fe9-98f4-df54a13c2d9f",
+      "name": "Download File",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "G72NjPCebIlPTKgZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "GPT-4O"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Please provide a concise, one-paragraph summary of the following document.\n\nDocument Name: {{ $node[\"Download File\"].json.name }}\n---\nContent:\n{{ $util.binaryToText($binary.data) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        1984,
+        704
+      ],
+      "id": "a14645fe-0410-4a84-aa42-73b5c4ea51b2",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "8NEBVJ2FhunmfnCm",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nif (items.length === 0) {\n  return [{ json: { finalSummary: \"No summarizable files (PDF, TXT, Docs) found in that folder.\" } }];\n}\n\nlet finalSummary = `AI Summaries for files in *${$node[\"Parse Summary Command\"].json.folderName}*:\\n\\n`;\n\nfor (const item of items) {\n  const fileName = item.json.fileName; // Make sure the filename is passed through\n  const summary = item.json.summary; // Make sure the summary is passed through\n  finalSummary += `📄 *${fileName}*:\\n${summary}\\n\\n`;\n}\n\nreturn [{ json: { finalSummary: finalSummary } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1792,
+        512
+      ],
+      "id": "e00c117d-920d-4748-b7dc-9877d5d9486f",
+      "name": "Aggregate Summaries"
+    },
+    {
+      "parameters": {
+        "url": "https://graph.facebook.com/v18.0/835982072927489/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"{{ $node[\"Parse Summary Command\"].json.senderId }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"body\": \"{{ $node[\"Aggregate Summaries\"].json.finalSummary }}\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2016,
+        512
+      ],
+      "id": "b40bdf28-bd56-4ce2-a7d3-f3287f1d97bc",
+      "name": "Send Summary",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "xGop94yiRTS0TYrD",
+          "name": "Meta Permanent Token"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        []
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Parse Input",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Parse Delete Command",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Parse Move Command",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Parse Summary Command",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Parse Rename Command",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Parse Upload Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Input": {
+      "main": [
+        [
+          {
+            "node": "Find Folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Folder": {
+      "main": [
+        [
+          {
+            "node": "Folder Exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Folder Exists?": {
+      "main": [
+        [
+          {
+            "node": "List Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Files": {
+      "main": [
+        [
+          {
+            "node": "Format List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format List": {
+      "main": [
+        [
+          {
+            "node": "Send Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Upload Command": {
+      "main": [
+        [
+          {
+            "node": "Find Upload Folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Upload Folder": {
+      "main": [
+        [
+          {
+            "node": "Upload Folder Exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Folder Exists?": {
+      "main": [
+        [
+          {
+            "node": "Upload File to Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload File to Drive": {
+      "main": [
+        [
+          {
+            "node": "Send Upload Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Delete Command": {
+      "main": [
+        [
+          {
+            "node": "Find Folder to Delete From",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Folder to Delete From": {
+      "main": [
+        [
+          {
+            "node": "Delete Folder Exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Folder Exists?": {
+      "main": [
+        [
+          {
+            "node": "Find File to Delete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find File to Delete": {
+      "main": [
+        [
+          {
+            "node": "File to Delete Exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "File to Delete Exists?": {
+      "main": [
+        [
+          {
+            "node": "Delete the File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete the File": {
+      "main": [
+        [
+          {
+            "node": "Send Deletion Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Move Command": {
+      "main": [
+        [
+          {
+            "node": "Find Source Folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Source Folder": {
+      "main": [
+        [
+          {
+            "node": "Find Destination Folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Destination Folder": {
+      "main": [
+        [
+          {
+            "node": "Find File to Move",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find File to Move": {
+      "main": [
+        [
+          {
+            "node": "Move the File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Move the File": {
+      "main": [
+        [
+          {
+            "node": "Send Move Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Rename Command": {
+      "main": [
+        [
+          {
+            "node": "Find Folder to Rename",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Folder to Rename": {
+      "main": [
+        [
+          {
+            "node": "Find File to Rename",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find File to Rename": {
+      "main": [
+        [
+          {
+            "node": "Rename the File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rename the File": {
+      "main": [
+        [
+          {
+            "node": "Send Rename Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Summary Command": {
+      "main": [
+        [
+          {
+            "node": "Find Folder to Summarize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Folder to Summarize": {
+      "main": [
+        [
+          {
+            "node": "List Files to Summarize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Files to Summarize": {
+      "main": [
+        [
+          {
+            "node": "Loop Through Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Through Files": {
+      "main": [
+        [
+          {
+            "node": "Aggregate Summaries",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Download File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download File": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        []
+      ]
+    },
+    "Aggregate Summaries": {
+      "main": [
+        [
+          {
+            "node": "Send Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0cb1dffe-20cd-4a6f-bd80-49739c1bef71",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "133055711e00091fa770a79bbdd2a4fad1528aa6da108a151de3f58b05f459ee"
+  },
+  "id": "ws0GNeNRssYnIPMP",
+  "tags": []
+}
